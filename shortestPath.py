@@ -3,8 +3,6 @@ from curses import wrapper
 import queue
 import time
 
-#  O=start, X=end, #=wall(obstruction)
-
 grid= [
     ["#", "S", "#", "#", "#", "#", "#", "#", "#"],
     ["#", " ", "#", " ", " ", " ", "#", " ", "#"],
@@ -38,6 +36,7 @@ def find_start(grid, start):
 def find_path(grid, stdscr):
     start = "S"
     end = "E"
+    # wall = "#"
     start_position = find_start(grid, start)
 
     q = queue.Queue()
@@ -50,7 +49,8 @@ def find_path(grid, stdscr):
         row, col = cur_pos
 
         stdscr.clear()
-        print_grid(grid,stdscr, path)
+        #Calls the print_grid function to render the grid with the current path.
+        print_grid(grid, stdscr, path)
         time.sleep(0.3)
         stdscr.refresh()
 
@@ -64,7 +64,7 @@ def find_path(grid, stdscr):
             if neighbor not in visited and grid[neighbor[0]][neighbor[1]] != "#":
                 new_path = path + [neighbor]
                 q.put((neighbor, new_path))
-                visited.add(neighbor)
+                visited.add(neighbor) #mark neigbor as visited
 
 def find_neighbors(grid, row, col):
     neighbors = []
@@ -80,12 +80,12 @@ def find_neighbors(grid, row, col):
 
     return neighbors
 
-
 def main(stdscr):  #standard op screen
-    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK) #(id, foreground_color, background_color)
+    #curses.init_pair(id, foreground_color, background_color)
+    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
 
     find_path(grid, stdscr)
-    stdscr.getch()
+    stdscr.getch() #Waits for a key press to keep the window open
 
 wrapper(main) #initializes curses module and call main
