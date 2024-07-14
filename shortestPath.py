@@ -22,7 +22,7 @@ def print_grid(grid, stdscr, path = []):
     for i, row in enumerate(grid): #enumrate = index and value
         for j, value in enumerate(row):
             if (i, j) in path:        #shows the path taken in red color
-                stdscr.addstr(i, j*2, "E", Red)
+                stdscr.addstr(i, j*2, "S", Red)
             else:
                 stdscr.addstr(i, j*2, value, Blue)
 
