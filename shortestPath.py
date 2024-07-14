@@ -57,7 +57,6 @@ def find_path(grid, stdscr):
         if grid[row][col] == end:
             return path
         
-        
         for neighbor in find_neighbors(grid, row, col):
             #checks if The neighbor cell has not been visited before and
             #The neighbor cell is not a wall(where # = wall)
